@@ -1,113 +1,113 @@
-# Installation Guide
+# Installation Guide for EVE-NG Community Edition on Windows 11 (VMware Workstation)
 
-This document outlines the installation and setup process for the Help Desk Tier 1 emulation lab using EVE-NG Community Edition on a Windows 11 host with VMware Workstation.
-
-## Host Environment
-
-- **Host OS:** Windows 11 Pro  
-- **Virtualization:** VMware Workstation  
-- **EVE-NG version:** Community Edition  
+This document details the step-by-step installation and initial setup process for the EVE-NG Community Edition (CE) virtual machine on a Windows 11 host using VMware Workstation.
 
 ---
 
-## Step 1 — Download and Deploy EVE-NG
+## Prerequisites
 
-**[Setup]**  
-- Download the EVE-NG Community OVA:  
-  [https://www.eve-ng.net/index.php/download/](https://www.eve-ng.net/index.php/download/)  
-- In VMware Workstation:  
-  - Go to `File > Open`, select the OVA file.  
-  - Import the VM and assign a name.  
-  - Adjust VM resources:
-    - CPU: 2 or more cores  
-    - RAM: 4 to 8 GB  
-    - Disk: Minimum 40 GB  
-    - Network: Bridged (for direct LAN access)  
-- Boot the virtual machine.
+- Windows 11 Pro or higher  
+- VMware Workstation installed  
+- Stable internet connection for downloads  
+- Minimum hardware requirements:  
+  - CPU: 2+ cores  
+  - RAM: 8 GB recommended  
+  - Disk space: 40+ GB free
 
 ---
 
-## Step 2 — Network Configuration
+## Step 1 — Download EVE-NG CE OVA
 
-**[Setup]**  
-- Log into the VM console:  
+- Go to [EVE-NG Downloads](https://www.eve-ng.net/index.php/download/)  
+- Download the **Community Edition OVA** file.
+
+---
+
+## Step 2 — Import OVA into VMware Workstation
+
+- Open VMware Workstation  
+- Select `File > Open`  
+- Browse to and select the downloaded OVA file  
+- Follow prompts to import the VM  
+- Name the VM (e.g., `EVE-NG-CE`)  
+- Adjust VM settings:  
+  - CPUs: 2 or more  
+  - Memory: 8 GB recommended  
+  - Network Adapter: Set to **Bridged** for LAN access  
+- Finish the import process
+
+---
+
+## Step 3 — Power On and Initial Access
+
+- Start the EVE-NG VM  
+- Access the console window in VMware  
+- Login with:  
   - **Username:** `root`  
-  - **Password:** `eve`  
-- Identify the VM’s IP address:  
+  - **Password:** `eve`
+
+---
+
+## Step 4 — Identify EVE-NG IP Address
+
+- At the root prompt, run:  
 ip a
 
+
+- Locate the IP address assigned to the bridged interface (likely `eth0` or similar)  
+- Note this IP for web GUI access
+
 ---
 
-## Step 3 — Web GUI Access Issue: Nginx and Apache Conflict
+## Step 5 — Web GUI Access Troubleshooting: Nginx vs Apache Conflict
 
-**[Warning]**  
-The web GUI did not load because Nginx was installed and occupied the required ports (80/443), causing a conflict with Apache2, which EVE-NG uses by default.
+- If the web GUI does not load at `https://<EVE-NG-IP>`, check for web server conflicts:  
+- EVE-NG uses Apache2 by default  
+- Nginx may be installed and occupy ports 80/443, causing conflicts
 
-**[Resolution]**  
-- Remove Nginx:  
+- To resolve:  
 apt remove nginx
-
-
-- Ensure Apache2 is installed and running:  
-apt install apache2
 systemctl restart apache2
 
-- Access the GUI:  
-https://<EVE-NG-IP>
 
-
-**[Success]**  
-Web GUI displayed correctly.
+- After restarting Apache2, retry accessing the web GUI.
 
 ---
 
-## Step 4 — Web GUI Login Issue
+## Step 6 — Logging into the Web GUI
 
-**[Warning]**  
-Initial login attempts failed after resolving the web server issue.
+- Default web GUI credentials:  
+- **Username:** `admin`  
+- **Password:** `eve`
 
-**[Attempts]**  
-- Changed the root password:  
-passwd
-
-- Attempted to reset EVE-NG admin password via CLI (unsuccessful for GUI login)
-
-**[Resolution]**  
-- Consulted official documentation:  
-[https://www.eve-ng.net/index.php/documentation/faq/](https://www.eve-ng.net/index.php/documentation/faq/)  
-- Determined correct default credentials:  
-admin / eve
-
-- Logged into the web GUI successfully.
-
-**[Success]**  
-Login confirmed with default credentials.
+- If login fails:  
+- Attempt to reset root password via console:  
+  ```
+  passwd
+  ```
+- Confirm you are using the `admin/eve` user for the GUI (not `root`).
 
 ---
 
-## Step 5 — Uploading Lab Images
+## Step 7 — Next Steps After Login
 
-**[Setup]**  
-- Downloaded images from official sources:
-- [pfSense](https://www.pfsense.org/download/)
-- [TinyCore Linux](http://tinycorelinux.net/)
-- [Ubuntu Server](https://ubuntu.com/download/server)
-- Uploaded images via WinSCP or `scp` to:
-/opt/unetlab/addons/qemu/<image-folder>/
-
-
-_(Folder names followed EVE-NG naming conventions, e.g., `vyos-1.3`)_
-- Fixed permissions:
-/opt/unetlab/wrappers/unl_wrapper -a fixpermissions
-
-**[Success]**  
-Uploaded images appeared in the node list in the EVE-NG web GUI.
+- Once logged in, familiarize yourself with the interface  
+- Proceed to upload images (see `image_upload.md`)  
+- Create and run basic lab topologies
 
 ---
 
 ## Notes
 
-- EVE-NG deployed on VMware Workstation with bridged networking to provide LAN IP access.  
-- Encountered and resolved web server conflict (Nginx vs. Apache2).  
-- Default GUI login credentials: `admin / eve`  
-- Initial images uploaded: pfSense, TinyCore Linux, Ubuntu Server.
+- Ensure VM time is synchronized with host to avoid authentication issues  
+- Run the following to fix permissions after uploading images:  
+/opt/unetlab/wrappers/unl_wrapper -a fixpermissions
+
+
+- Keep the VM updated with `apt update && apt upgrade` periodically.
+
+---
+
+## Summary
+
+This guide covers the basics to get your EVE-NG environment running on Windows 11 with VMware Workstation
