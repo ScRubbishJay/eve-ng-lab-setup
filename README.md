@@ -1,140 +1,98 @@
-# EVE-NG Lab Setup for Help Desk and NOC Simulation  
-This repository documents the environment and lab projects for simulating Help Desk Tier 1 & 2 and NOC Tier 1 & 2 scenarios using EVE-NG on VMware Workstation. All components use free, open-source, or trial software.
+# EVE-NG Lab Setup for Help Desk and NOC Tier 1 & 2 Skills
+
+## Overview
+
+This repository contains detailed lab setups and configurations for practicing common Help Desk and Network Operations Center (NOC) Tier 1 and Tier 2 tasks using EVE-NG running on VMware Workstation.
+
+The goal is to provide a realistic, hands-on environment to develop troubleshooting, configuration, and monitoring skills relevant to IT support and network operations roles.
 
 ---
 
-## Tech Stack Used
+## Repository Structure
 
-| Component | Purpose | Tool |
-|------------|---------|------|
-| Firewall / Router | Routing, VPN, firewall | pfSense |
-| Monitoring | Network/server monitoring | Zabbix (Ubuntu) |
-| Syslog | Log aggregation | Graylog (Ubuntu) |
-| Ticketing | Issue tracking | OTRS (Ubuntu) |
-| User Client | End-user simulation | Windows 10 trial OR Ubuntu Desktop |
-| Server | AD, file services | Windows Server eval (optional) |
-| Utility | General servers | Ubuntu Server |
+- **helpdesk/**  
+  Contains labs focused on common Help Desk Tier 1 & Tier 2 issues, primarily Windows and Ubuntu client/server troubleshooting.
 
----
+- **noc/**  
+  Contains labs for NOC Tier 1 & Tier 2 tasks, including network monitoring, firewall configuration, log management, and ticketing system emulation.
 
-## Lab Categories & Projects
-
-### Help Desk Tier 1 Projects
-1️⃣ **Basic Network Connectivity**  
-- Ping, tracert, nslookup usage  
-- Resolve DNS misconfigurations  
-- Fix gateway/DHCP issues  
-
-2️⃣ **File Share Access & Permissions**  
-- NTFS vs Share permission conflicts  
-- Map drives, troubleshoot denied access  
-
-3️⃣ **User Account Issues**  
-- Password resets, unlock accounts  
-- Group membership corrections  
-
-4️⃣ **Printer Troubleshooting**  
-- Clear queues  
-- Restart spooler  
-- Driver reinstall  
+- **docs/**  
+  General documentation related to environment setup, troubleshooting guides, and image installation.
 
 ---
 
-### Help Desk Tier 2 Projects
-1️⃣ **Group Policy & Login Scripts**  
-- Simulate GPO not applying  
-- Troubleshoot with gpresult / rsop.msc  
+## Lab Environment
 
-2️⃣ **BitLocker Recovery**  
-- Trigger recovery key prompt  
-- Retrieve/apply recovery key  
+- **Base Platform:**  
+  EVE-NG Community or Professional Edition running inside VMware Workstation on Windows 11 host.
 
-3️⃣ **VPN/RDP Failures**  
-- Simulate credential and port issues  
-- Resolve pfSense VPN config  
+- **Help Desk Labs Tech Stack:**  
+  - Windows 10 client (evaluation images)  
+  - Windows Server (evaluation images)  
+  - Ubuntu Server/Desktop (free, open source)
 
-4️⃣ **Application Crashes / Installs**  
-- Simulate blocked installs  
-- Analyze logs, resolve with reinstall  
-
----
-
-### NOC Tier 1 Projects
-1️⃣ **Zabbix Ping & Interface Monitoring**  
-- Detect ping loss  
-- Identify down interfaces  
-
-2️⃣ **Basic Syslog Analysis**  
-- Ingest pfSense logs to Graylog  
-- Search for interface down/sys events  
-
-3️⃣ **Simple Ticket Logging**  
-- Enter tickets in OTRS  
-- Assign/resolved basic alerts  
-
-4️⃣ **VPN Tunnel Monitoring**  
-- Alert on tunnel down  
-- Verify pfSense status  
+- **NOC Labs Tech Stack:**  
+  - pfSense firewall/router  
+  - Zabbix network monitoring server  
+  - Graylog centralized log management  
+  - OTRS ticketing system  
+  - Ubuntu Server/Desktop (support VMs)
 
 ---
 
-### NOC Tier 2 Projects
-1️⃣ **Zabbix Custom Triggers**  
-- CPU, RAM thresholds  
-- Custom item monitoring  
+## Getting Started
 
-2️⃣ **Complex Syslog Patterns**  
-- Detect repeated failures / brute force  
-- Alert on log patterns  
+### 1. Setup VMware Workstation and Import EVE-NG VM
 
-3️⃣ **Advanced Ticket Workflows**  
-- Simulate escalation and ticket handoff  
+Follow the installation guides in the respective folders to import and configure your EVE-NG VM, network settings, and access the EVE-NG web GUI.
 
-4️⃣ **Multi-site Link Failure Handling**  
-- Simulate routing failover  
-- Verify Zabbix/Graylog alerting  
+### 2. Download and Prepare VM Images
 
----
+Download evaluation ISOs for Windows and Windows Server, and official Ubuntu images. For NOC labs, download pfSense, Zabbix, Graylog, and OTRS images or prepare VMs accordingly.
 
-## Directory Structure
+### 3. Upload and Register Images in EVE-NG
 
-/eve-ng-lab-setup/
-├── README.md
-├── /helpdesk/
-│ ├── tier1/
-│ └── tier2/
-├── /noc/
-│ ├── tier1/
-│ └── tier2/
-└── /screenshots/
+Use SCP or WinSCP to upload images to EVE-NG and configure proper permissions.
 
+### 4. Build Lab Topologies
+
+Create lab projects in EVE-NG following the project outlines in `helpdesk/projects.md` and `noc/projects.md`.
+
+### 5. Practice Troubleshooting
+
+Use the troubleshooting guides for Help Desk and NOC labs in their respective folders to simulate and resolve common issues.
 
 ---
 
-## How To Use This Repo
+## Documentation
 
-✅ Clone the repo  
+- `helpdesk/installation.md` — Help Desk environment installation and setup  
+- `helpdesk/images.md` — Importing Help Desk VM images  
+- `helpdesk/troubleshooting.md` — Help Desk troubleshooting workflows  
+- `helpdesk/projects.md` — Help Desk lab projects outline  
 
-git clone https://github.com/ScRubbishJay/eve-ng-lab-setup.git
-
-
-✅ Follow instructions inside each project folder  
-
-✅ Document: screenshots, configs, commands  
-
-✅ Push updates  
-
-git add .
-git commit -m "Added lab results"
-git push
+- `noc/installation.md` — NOC environment installation and setup  
+- `noc/images.md` — Importing NOC VM images  
+- `noc/troubleshooting.md` — NOC troubleshooting workflows  
+- `noc/projects.md` — NOC lab projects outline  
 
 ---
 
-## Notes  
-- Windows 10 trial = 90-180 days  
-- Windows Server eval = 180 days  
-- Ubuntu Desktop = free alternative  
-- All tools: open source / trial suitable for labs  
+## Contributing
+
+Feel free to submit issues or pull requests if you have suggestions or improvements.
+
+---
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Contact
+
+For questions or support, reach out via GitHub Issues or contact [your email/contact info].
 
 
 
