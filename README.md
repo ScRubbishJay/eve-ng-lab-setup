@@ -92,7 +92,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 ## Contact
 
-For questions or support, reach out via GitHub Issues or contact [your email/contact info].
+For questions or support, reach out via GitHub Issues or contact jvontewalker@gmail.com
 
 
 
