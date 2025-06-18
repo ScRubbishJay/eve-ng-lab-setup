@@ -1,0 +1,25 @@
+# VM images and disk files
+*.iso
+*.qcow2
+*.vmdk
+*.vdi
+*.ova
+*.ovf
+
+# Logs and temporary files
+*.log
+*.bak
+*.tmp
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# EVE-NG specific temp files (if you ever archive)
+*.unl.bak
+*.backup
+
+# Git metadata (just in case)
+.gitignore
