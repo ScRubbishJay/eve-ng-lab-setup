@@ -78,6 +78,25 @@ Use the troubleshooting guides for Help Desk and NOC labs in their respective fo
 
 ---
 
+Common Troubleshooting
+
+Issue	Solution	Notes
+Cannot access EVE-NG Web GUI	Check VM IP and network adapter settings	NAT vs Bridged network mode is crucial
+VM images not visible or usable	Verify image location and permissions	Run fixpermissions script after upload
+Unable to login to EVE-NG Web GUI	Reset root password via EVE-NG CLI	Use passwd root command on EVE-NG console
+Network connectivity issues between VMs	Verify IP configs, ping test, check pfSense logs	Firewall rules might block traffic
+
+Useful Commands
+
+# Fix permissions after image upload
+/opt/unetlab/wrappers/unl_wrapper -a fixpermissions
+
+# Reset root password (if needed)
+passwd root
+
+# Restart EVE-NG services
+systemctl restart eve-ng
+
 ## Contributing
 
 Feel free to submit issues or pull requests if you have suggestions or improvements.
